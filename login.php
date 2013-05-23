@@ -25,6 +25,7 @@ if($op=="in"){
 }else if($op=="out"){
     unset($_SESSION['userid']);
     unset($_SESSION['level']);
+    unset($_SESSION['total_itung']);
     header("location:index.php");
 }
 ?>

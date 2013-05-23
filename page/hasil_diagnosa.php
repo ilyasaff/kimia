@@ -1,15 +1,16 @@
 <?php
 session_start();
 require 'inc/koneksi.php';
-require 'page/cf.php';
-
-	if (count($_SESSION['listgejala'])!=0){
-		$hasil = CF($_SESSION['listgejala']);
-		$hasilmax = doublemax($hasil['h']);
-		$idpeny = $hasil['p'][$hasilmax['i']];
-
-	$penyakit = mysql_query("SELECT * FROM kimia WHERE idk = '".$hasil['p'][$hasilmax['i']]."' LIMIT 0,1") or die(mysql_error());
-	$datap = mysql_fetch_array($penyakit);
+// echo "<pre>"; print_r($_SESSION['new_itung']); echo "</pre>";
+$final_penyakit = array();
+$final_cf = array();
+foreach ($_SESSION['new_itung_full'] as $key => $value) {
+	$penyakit = explode("_", $value);
+	array_push($final_penyakit, $penyakit[3]);
+	array_push($final_cf, $penyakit[0]);
+}
+$penyakit = mysql_query('SELECT * FROM kimia WHERE idk IN ("' . implode('", "', $final_penyakit) . '")') or die(mysql_error());
+// $datap = mysql_fetch_array($penyakit);
 	
 ?>
 <div class="content-box-header"><center>HASIL IDENTIFIKASI<center><p></div>
@@ -36,6 +37,11 @@ require 'page/cf.php';
 		<br/><h4>Kemungkinan anda terkena </h4><br/>
 	</td> 
 	</tr>
+<?
+	$init = 0;
+	while($datap = mysql_fetch_array($penyakit))
+	{
+?>
 	<tr valign="center">
 		<td>Penyakit</td>
 		<td> : </td>
@@ -64,13 +70,23 @@ require 'page/cf.php';
 	<tr valign="center">
 		<td>Nilai CF</td>
 		<td> : </td>
-		<td><?php echo $hasilmax['m'];?></td>
+		<td><?php echo $final_cf[$init];?></td>
 	</tr>
+	<tr valign="center">
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+		<td>&nbsp;</td>
+	</tr>
+<?
+		$init++;
+	}
+?>
 </table>
 <div align="center"><b>Segera Periksakan Kondisi Anda Ke Dokter Untuk Mendapatkan Perawatan Yang Lebih Intensif</b></div>
 
 <?php
-	}else{
+if(mysql_num_rows($penyakit) == 0)
+{
 ?>
 <div class="content-box-header"><h2><center>HASIL IDENTIFIKASI</center></h2></div>
 
@@ -82,6 +98,7 @@ require 'page/cf.php';
 	</tr>
 </table>	
 <?php	
-	}
+}
  unset($_SESSION['listgejala']);
+ unset($_SESSION['total_hitung']);
 ?>
