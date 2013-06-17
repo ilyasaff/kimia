@@ -101,4 +101,6 @@ if(mysql_num_rows($penyakit) == 0)
 }
  unset($_SESSION['listgejala']);
  unset($_SESSION['total_hitung']);
+ unset($_SESSION['new_itung_full']);
+ unset($_SESSION['new_itung']);
 ?>
