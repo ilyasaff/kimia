@@ -20,7 +20,7 @@
 
 <?php
 mysql_connect("localhost","root","");
-mysql_select_db("pakar");
+mysql_select_db("kimia");
 
 $warnaGenap = "#CCCCCC";   // warna abu-abu
 $warnaGanjil = "#FFFFFF";  // warna putih
