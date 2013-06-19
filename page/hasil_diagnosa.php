@@ -4,13 +4,15 @@ require 'inc/koneksi.php';
 // echo "<pre>"; print_r($_SESSION['new_itung']); echo "</pre>";
 $final_penyakit = array();
 $final_cf = array();
+$jml_gejala = 0;
 foreach ($_SESSION['new_itung_full'] as $key => $value) {
 	$penyakit = explode("_", $value);
 	array_push($final_penyakit, $penyakit[3]);
 	array_push($final_cf, $penyakit[0]);
 }
-$jml_gejala = count($final_penyakit);
-$penyakit = mysql_query('SELECT * FROM kimia WHERE idk IN ("' . implode('", "', $final_penyakit) . '") HAVING COUNT(idk) = '.$jml_gejala.' ') or die(mysql_error());
+$jml_gejala = count($_SESSION['listgejala']);
+$list_gejala = $_SESSION['listgejala'];
+$penyakit = mysql_query('SELECT k.* FROM relasi AS r, kimia AS k WHERE r.idk IN ("' . implode('", "', $final_penyakit) . '") AND r.idg IN ("' . implode('", "', $list_gejala) . '") AND r.idk = k.idk GROUP BY idk HAVING COUNT(r.idg) = '.$jml_gejala.' ') or die(mysql_error());
 // $datap = mysql_fetch_array($penyakit);
 	
 ?>
