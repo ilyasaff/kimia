@@ -9,7 +9,8 @@ foreach ($_SESSION['new_itung_full'] as $key => $value) {
 	array_push($final_penyakit, $penyakit[3]);
 	array_push($final_cf, $penyakit[0]);
 }
-$penyakit = mysql_query('SELECT * FROM kimia WHERE idk IN ("' . implode('", "', $final_penyakit) . '") LIMIT 2') or die(mysql_error());
+$jml_gejala = count($final_penyakit);
+$penyakit = mysql_query('SELECT * FROM kimia WHERE idk IN ("' . implode('", "', $final_penyakit) . '") HAVING COUNT(idk) = '.$jml_gejala.' ') or die(mysql_error());
 // $datap = mysql_fetch_array($penyakit);
 	
 ?>
