@@ -12,7 +12,7 @@
 <?php
 if(isset($_POST['restore'])){
 	$koneksi=mysql_connect("localhost","root","");
-	mysql_select_db("kimia",$koneksi);
+	mysql_select_db("pakar",$koneksi);
 	
 	$nama_file=$_FILES['datafile']['name'];
 	$ukuran=$_FILES['datafile']['size'];

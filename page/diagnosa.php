@@ -15,7 +15,7 @@ require 'inc/koneksi.php';
 			echo "<script>window.location.href = 'home.php?page=hasil_diagnosa';</script>";
 		}
 	}else{
-		$mulai = "G008";
+		$mulai = "G004";
 		$next = $mulai;
 		$_SESSION['listgejala'] = Array();
 	}
@@ -47,15 +47,9 @@ require 'inc/koneksi.php';
 			$_SESSION['total_itung']--;
 		$cf = array();
 		$mbmdprev = explode("_", $_SESSION['new_itung']);
-		// echo "<pre>"; print_r($mbmdprev); echo "</pre>"; echo "<hr>";
-		// for($i=0; $i<$_SESSION['total_itung']; $i++)
-		// {
-
-		// }
+		
 		$output = array_slice($_SESSION['listgejala'], $_SESSION['total_itung']);		
 		$nlistgejala = implode(", ", $_SESSION['listgejala']);
-		// $nlistgejala = implode(", ", $output);
-		// echo $nlistgejala;
 		$full = $_SESSION['new_itung_full'];
 		// echo "<pre>"; print_r($full); echo "</pre>";
 		while ($data = mysql_fetch_array($sqli)){
@@ -81,54 +75,23 @@ require 'inc/koneksi.php';
 							$md_new = $md_from_prev + ( $md * (1-$md_from_prev) );
 
 							$cf_new = $mb_new - $md_new;
-
-							// echo "lawas ==> ".$cf_new."_".$mb_from_prev."_".$md_from_prev."_".$idk."<br>" ;
-							// echo "baru ==> ".$cf_new."_".$mb_new."_".$md_new."_".$idk."<br>" ;
-
-							// $full_list = $val[4].",".$idk.",";
-
-							// array_push($cf, $cf_new."_".$mb_new."_".$md_new."_".$idk."_".$idk.",".$val[3].",");
-
+							
 							array_push($cf, $cf_new."_".$mb_new."_".$md_new."_".$idk);
 
-							// $test .= $val[3]." ";
 						}
 					}
 				}
 
-				// echo $test."<br>";
-
-				// $mb_from_prev = $mbmdprev[1];
-				// $mb = $mbmd['mb'];
-				// $mb_new = $mb_from_prev + ( $mb * (1-$mb_from_prev) );
-
-				// $md_from_prev = $mbmdprev[2];
-				// $md = $mbmd['md'];
-				// $md_new = $md_from_prev + ( $md * (1-$md_from_prev) );
-
-				// $cf_new = $mb_new - $md_new;
-
-				// array_push($cf, $cf_new."_".$mb_new."_".$md_new."_".$idk);
 
 				// echo "<i>"; echo $listsakit[$j]."<br>"; echo "</i>";
 			}										
 		}
-		// echo "<pre>"; print_r($cf); echo "</pre>";		
+				
 		rsort($cf, SORT_NUMERIC); 
 		$_SESSION['new_itung'] = (count($cf)>0) ? $cf[0] : "Nonono";
 		$_SESSION['new_itung_full'] = (count($cf)>0) ? $cf : "Nonono";
-		// echo "<pre>"; print_r($cf); echo "</pre>";		
-		// echo "<strong>".$cf[0]."</strong>";
+		
 	}
-
-	// if ($next==""){
-	// 	echo "<script>window.location.href = 'home.php?page=hasil_diagnosa';</script>";
-	// }
-
-	// echo "<pre>"; print_r($_SESSION['total_itung']); echo "</pre>";
-
-	// echo "<pre>"; print_r($_SESSION['listgejala']); echo "</pre>";
-	
 
 	$qry = mysql_query("SELECT t.idg idg,t.g_ya,t.g_tidak,g.pertanyaan FROM `t_pertanyaan` t
 						LEFT JOIN gejala g ON t.idg = g.idg WHERE t.idg='$next'") or die(mysql_error());

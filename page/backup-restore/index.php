@@ -15,7 +15,7 @@ if(isset($_POST['backup'])){
 	$file=date("DdMY").'_ri32_backup_data_'.time().'.sql';
 	
 	//panggil fungsi dengan memberi parameter untuk koneksi dan nama file untuk backup
-	backup_tables("localhost","root","","kimia",$file);
+	backup_tables("localhost","root","","pakar",$file);
 	
 	?>
 	<p align="center">&nbsp;</p>
