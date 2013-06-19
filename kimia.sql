@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jun 18, 2013 at 08:36 PM
+-- Generation Time: Jun 19, 2013 at 04:37 PM
 -- Server version: 5.5.8
 -- PHP Version: 5.3.5
 
@@ -287,7 +287,7 @@ INSERT INTO `t_pertanyaan` (`id`, `idg`, `g_ya`, `g_tidak`) VALUES
 (189, 'G013', 'G014', ''),
 (174, 'G003', '', ''),
 (173, 'G002', 'G018', ''),
-(172, 'G001', 'G019', 'G013'),
+(172, 'G001', 'G019', 'G028'),
 (200, 'G024', '', ''),
 (201, 'G025', 'G026', ''),
 (202, 'G026', '', ''),
