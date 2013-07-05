@@ -1,5 +1,5 @@
 <?php
-session_start();
+// session_start();
 require 'inc/koneksi.php';
 // echo "<pre>"; print_r($_SESSION['new_itung']); echo "</pre>";
 $final_penyakit = array();
